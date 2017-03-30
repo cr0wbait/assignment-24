@@ -4,13 +4,21 @@
 
 body{
 	margin: 0;
-	font-family: fantasy;
+	font-family: sans-serif;
 }
 
 h1{
-	margin: 0 0 10px 0;
+	padding: 10px;
 	color: #fff;
-	border-bottom: 4px solid #fff;
+	text-align: center;
+	border: none;
+}
+
+input{
+	padding: 5px;
+	border: none;
+	width: 350px;
+	height: 30px;
 }
 
 #app-container{
@@ -18,4 +26,22 @@ h1{
 	background-size: cover;
 	background-repeat: no-repeat;
 	min-height: 100vh;
+}
+
+.control {
+	text-align: center;
+	padding: 10px;
+}
+
+.item {
+	background-color: #fff;
+	color: #000;
+	text-align: center;
+	max-width: 250px;
+	padding: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 100%;
 }
