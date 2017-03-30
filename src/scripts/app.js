@@ -19,30 +19,16 @@ const BigDealContainer = React.createClass({
 		})
 	},
 
-	_oldThing: function(didStuff){
-		let doneStuff = this.state.doStuff.filter(function(listThing){
-			if (didStuff !== listThing.item){
-				return true
-			} else {
-				return false
-			}
-		})
-			this.setState({
-				doStuff: doneStuff
-			})
-	},
-
 	_newItem: function(everythings, index){
 		let component = this
 		let allThings = everythings.map(function(list, index){
-		let tellThings = document.querySelector('.tellThings')
 			return(
 				<div className="item">
-					<p></p>
+					<p><span>{list.item}</span></p>
 					<button><i className="fa fa-asterisk"></i></button>
 				</div>
 			)
-		})
+		}).reverse()
 		return allThings
 	},
 
