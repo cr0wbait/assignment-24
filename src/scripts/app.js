@@ -78,20 +78,5 @@ const InputThing = React.createClass({
 	}
 })
 
-const UnThing = React.createClass({
-	_throwStuffAway: function(){
-		this.props.removeItem(this.props.everythings.item)
-	},
-
-	render: function (){
-		return (
-			<div className="bigList">
-				<span><input ref="trashbin" type="checkbox" className="form-inline"></input> {this.props.everythings.item} </span>
-				<button className = "mash_me" onClick={this._oldThing}></button>
-			</div>
-		)
-	}
-})
-
 let bigDealZone = document.querySelector('#app-container')
 ReactDOM.render ( <BigDealContainer/>, bigDealZone)
