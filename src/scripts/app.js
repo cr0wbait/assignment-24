@@ -4,23 +4,90 @@ import ReactDOM from 'react-dom';
 console.log ("Windmill, windmill, through the sky!")
 
 const BigDealContainer = React.createClass({
-	render: function(){
-		console.log('Ahoy!')
-
-		let dealStyle = {
-
+	getInitialState: function(){
+		return {
+			doStuff: []
 		}
+	},
 
-		return <div style={dealStyle} className="theBigDeal">
-			<div style={} className="input">
-				<input style={} placeholder="Gimme a task." className="inputbar"></input><button className="orders">DO IT NOW</button>
-			</div>
-			<div className="task_items">
+	_newThing: function(newStuff){
+		let allStuff = this.state.doStuff.map(function(stuff) {return stuff})
+		allStuff.push(newStuff)
+		this.setState({
+			doStuff: allStuff
+		})
+	},
 
-			</div>
-		</div>
+	_oldThing: function(didStuff){
+		let doneStuff = this.state.doStuff.filter(function(listThing){
+			if (didStuff !== listThing.item){
+				return true
+			} else {
+				return false
+			}
+		})
+			this.setState({
+				doStuff: doneStuff
+			})
+	},
+
+	_makeABigDeal: function(everythings, index){
+		let component = this
+		let allThings = everythings.map(function(list, index){
+			return(
+				<item removeItem={component._oldThing} list={list} key={index}/>
+			)
+		})
+		return allThings
+	},
+
+	render: function(){
+		return (
+			<div className="bigdeal">
+				<h1>Do Me.</h1>
+					<InputThing refreshList={this._newThing}/>
+					<hr/>
+					<div className="items">
+						{this._makeABigDeal(this.state.doStuff)}
+						</div>
+					</div>
+		)
 	}
 })
 
-console.log('I have the power!', React)
-ReactDOM.render(<SomeComponent/>, document.querySelector('#app-container'))
+const InputThing = React.createClass({
+	_putNewThing: function(){
+		let newThings = {
+			item: this.refs.tellMe.value
+		}
+		this.props.refreshList(newThings)
+		this.refs.tellMe.value= ''
+	},
+
+	render: function(){
+		return (
+			<div className="listies">
+				<input ref="tellMe" type="text" className="tellThings" placeholder="Tell me what you want."></input>
+				<button className="punch_me" onClick={this._putNewThing}><i className="fa fa-crosshairs" aria-hidden="true"></i></button>
+			</div>
+		)
+	}
+})
+
+const ThingToDo = React.createClass({
+	_throwStuffAway: function(){
+		this.props.removeItem(this.props.everythings.item)
+	},
+
+	render: function (){
+		return (
+			<div className="bigList">
+				<span><input ref="trashbin" type="checkbox" className="form-inline"></input> {this.props.everythings.item} </span>
+				<button className = "mash_me" onClick={this._oldThing}></button>
+			</div>
+		)
+	}
+})
+
+let bigDealZone = document.querySelector('#app-container')
+ReactDOM.render ( <BigDealContainer/>, bigDealZone)
