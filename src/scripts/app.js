@@ -32,13 +32,13 @@ const BigDealContainer = React.createClass({
 			})
 	},
 
-	_makeABigDeal: function(everythings, index){
+	_newItem: function(everythings, index){
 		let component = this
 		let allThings = everythings.map(function(list, index){
 		let tellThings = document.querySelector('.tellThings')
 			return(
 				<div className="item">
-					<p>what am i</p>
+					<p></p>
 					<button><i className="fa fa-asterisk"></i></button>
 				</div>
 			)
@@ -52,7 +52,7 @@ const BigDealContainer = React.createClass({
 				<h1>Do Me.</h1>
 					<InputThing refreshList={this._newThing}/>
 					<div className="items">
-						{this._makeABigDeal(this.state.doStuff)}
+						{this._newItem(this.state.doStuff)}
 					</div>
 					</div>
 		)
