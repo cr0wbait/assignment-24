@@ -4,9 +4,15 @@ import ReactDOM from 'react-dom';
 const SomeComponent = React.createClass({
 	render: function(){
 		console.log('whoa!')
-		return <div>
-			<h1>Owoooooooooo!</h1>
-			<img src="./images/exciting.jpg"/>
+
+		let listStyle = {
+			
+		}
+
+		return <div style={listStyle} className="listEl">
+
+
+
 		</div>
 	}
 })
