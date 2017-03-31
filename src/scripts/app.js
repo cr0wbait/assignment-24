@@ -12,25 +12,11 @@ const BigDealContainer = React.createClass({
 	},
 
 	_thingDo: function(newStuff){
-		let allStuff = this.state.doStuff.map(function(stuff) {return stuff})
+		let allStuff = this.state.doStuff.map(function(copy) {return copy})
 		allStuff.push(newStuff)
 		this.setState({
 			doStuff: allStuff
 		})
-	},
-
-	_newItem: function(everythings, index){
-		let component = this
-		let allThings = everythings.map(function(list, index){
-			return(
-
-				<div className="item">
-					<p><span>{list.item}</span></p>
-					<button ref="do_me" className="itembutt" onClick><i className="fa fa-asterisk"></i></button>
-				</div>
-			)
-		}).reverse()
-		return allThings
 	},
 
 	_killThing: function(victim){
@@ -50,9 +36,7 @@ const BigDealContainer = React.createClass({
 		return (
 			<div className="calmthejsx">
 				<InputThing refreshList={this._thingDo}/>
-				<div className="items_list">
-					{this._newItem(this.state.doStuff)}
-				</div>
+				<ItemBuilder thingsToDo={this.state.doStuff} killSwitch={this._killThing}/>
 			</div>
 		)
 	}
@@ -60,11 +44,8 @@ const BigDealContainer = React.createClass({
 
 const InputThing = React.createClass({
 	_putNewThing: function(){
-		let newThings = {
-			item: this.refs.tellMe.value
-		}
-		this.props.refreshList(newThings)
-		this.refs.tellMe.value= ''
+		evt.preventDefault()
+		this.props.refreshList({item:this.refs.task.value})
 	},
 
 	render: function(){
@@ -72,6 +53,30 @@ const InputThing = React.createClass({
 			<div className="control">
 				<input ref="tellMe" type="text" className="tellThings" placeholder="Tell me what you want."></input>
 				<button className="punch_me" onClick={this._putNewThing}><i className="fa fa-crosshairs" aria-hidden="true"></i></button>
+			</div>
+		)
+	}
+})
+
+const ItemBuilder = React.createClass({
+
+	_makeThing: function(todoRA){
+		let component = this
+		let allThings = todoRA.map(function(list, index){
+			return(
+				<div className="item">
+					<p><span>{list.item}</span></p>
+					<button ref="do_me" className="itembutt" onClick={function(){component.props.killSwitch(index)}} ><i className="fa fa-asterisk"></i></button>
+				</div>
+			)
+		}).reverse()
+		return allThings
+	},
+
+	render: function(){
+		return (
+			<div classname="halp">
+				{this._makeThing(this.props.doStuff)}
 			</div>
 		)
 	}
