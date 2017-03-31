@@ -11,7 +11,7 @@ const BigDealContainer = React.createClass({
 		}
 	},
 
-	_newThing: function(newStuff){
+	_thingDo: function(newStuff){
 		let allStuff = this.state.doStuff.map(function(stuff) {return stuff})
 		allStuff.push(newStuff)
 		this.setState({
@@ -23,24 +23,37 @@ const BigDealContainer = React.createClass({
 		let component = this
 		let allThings = everythings.map(function(list, index){
 			return(
+
 				<div className="item">
 					<p><span>{list.item}</span></p>
-					<button><i className="fa fa-asterisk"></i></button>
+					<button ref="do_me" className="itembutt" onClick><i className="fa fa-asterisk"></i></button>
 				</div>
 			)
 		}).reverse()
 		return allThings
 	},
 
+	_killThing: function(victim){
+		let dirtyCommie = this.state.doStuff.filter(function(item, index){
+			if (victim !== index){
+				return true
+			} else {
+				return false
+			}
+		})
+		this.setState({
+			doStuff: dirtyCommie
+		})
+	},
+
 	render: function(){
 		return (
-			<div className="bigdeal">
-				<h1>Do Me.</h1>
-					<InputThing refreshList={this._newThing}/>
-					<div className="items">
-						{this._newItem(this.state.doStuff)}
-					</div>
-					</div>
+			<div className="calmthejsx">
+				<InputThing refreshList={this._thingDo}/>
+				<div className="items_list">
+					{this._newItem(this.state.doStuff)}
+				</div>
+			</div>
 		)
 	}
 })
@@ -64,5 +77,5 @@ const InputThing = React.createClass({
 	}
 })
 
-let bigDealZone = document.querySelector('#app-container')
+let bigDealZone = document.querySelector('.bigdeal')
 ReactDOM.render ( <BigDealContainer/>, bigDealZone)
