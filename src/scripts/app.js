@@ -61,6 +61,7 @@ const InputThing = React.createClass({
 const ItemBuilder = React.createClass({
 
 	_makeThing: function(todoRA){
+		let todoRa 
 		let component = this
 		let allThings = todoRA.map(function(list, index){
 			return(
